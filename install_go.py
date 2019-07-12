@@ -17,7 +17,7 @@ FILE_TMPL = "go{0}.linux-{1}.tar.gz"
 INSTALL_CMD = "sudo tar -C /usr/local -xzf {}"
 
 DEB_BASED = ["ubuntu", "debian"]
-DEBIAN_BASE = "dpkg --print-architecture"
+DEBIAN_CMD = "dpkg --print-architecture"
 
 #----------------------------------------------------------------------------------------------
 # Helper functions
@@ -71,7 +71,7 @@ linux_arch = args.goarch
 # Check current linux distribution
 os_family = run_cmd(cmd="lsb_release -i | awk '{print $3}'")
 if os_family.lower() in DEB_BASED:
-    os_arch = run_cmd(cmd="dpkg --print-architecture")
+    os_arch = run_cmd(cmd=DEBIAN_CMD)
     if os_arch != linux_arch:
         print("Current linux arch: {}".format(os_arch))
         sys.exit(1)
